@@ -1,6 +1,3 @@
-Here’s a **professional `README.md`** tailored for your Django project `Learning Hub` with Docker support, no database, TailwindCSS, and custom profile features:
-
----
 
 # 🧠 Learning Hub - Django Web App
 
