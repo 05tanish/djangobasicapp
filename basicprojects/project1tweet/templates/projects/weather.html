@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🌦️ Weather App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="relative bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen flex items-center justify-center px-4">
+
+  <!-- Home Button -->
+  <a href="{% url 'home' %}" class="absolute top-4 left-4 z-50">
+    <button class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded shadow">
+      ← Home
+    </button>
+  </a>
+
+  <div class="bg-white dark:bg-gray-800 shadow-xl rounded-xl p-8 w-full max-w-md space-y-6">
+    <!-- ... rest of password generator content ... -->
+
+<body class="bg-gradient-to-br from-blue-900 via-indigo-800 to-gray-900 min-h-screen flex items-center justify-center p-4">
+
+  <section class="bg-white/10 backdrop-blur-md p-6 rounded-xl shadow-lg w-full max-w-md text-white space-y-6 relative">
+    <h2 class="text-3xl font-bold text-center">🌦️ Weather App</h2>
+
+    <form id="weather-form" class="flex gap-2">
+      <div class="flex items-center gap-2 bg-white/20 px-3 py-2 rounded-md w-full">
+        <i class="fas fa-search text-white/80"></i>
+        <input type="text" id="city-input" placeholder="Enter city name" class="bg-transparent outline-none text-white w-full" required />
+      </div>
+      <button type="submit" class="bg-pink-600 hover:bg-pink-700 px-4 py-2 rounded-md">Get</button>
+    </form>
+
+    <button id="geo-btn" class="text-sm text-blue-300 underline hover:text-blue-400 transition w-full text-center">Use my location</button>
+
+    <div id="loader" class="text-center hidden">
+      <i class="fas fa-spinner fa-spin text-3xl text-pink-400"></i>
+      <p class="mt-2">Fetching weather...</p>
+    </div>
+
+    <div id="result" class="space-y-2 text-center hidden transition duration-300">
+      <h3 id="location" class="text-2xl font-semibold"></h3>
+      <p id="weather" class="text-lg"></p>
+      <p id="temperature" class="text-5xl font-bold"></p>
+      <p id="feelslike" class="text-sm text-white/70"></p>
+      <button id="toggle-temp" class="mt-2 text-sm underline text-white/60 hover:text-white transition">Switch to °F</button>
+    </div>
+  </section>
+
+  <style>const form = document.getElementById("weather-form");
+const input = document.getElementById("city-input");
+const loader = document.getElementById("loader");
+const result = document.getElementById("result");
+const locationEl = document.getElementById("location");
+const weatherEl = document.getElementById("weather");
+const tempEl = document.getElementById("temperature");
+const feelsLikeEl = document.getElementById("feelslike");
+const toggleBtn = document.getElementById("toggle-temp");
+const geoBtn = document.getElementById("geo-btn");
+
+let currentTempC = null;
+let showCelsius = true;
+
+const API_KEY = "YOUR_API_KEY"; // ⬅️ Replace this with your actual OpenWeatherMap API key
+
+function showLoader(show = true) {
+  loader.classList.toggle("hidden", !show);
+  result.classList.toggle("hidden", show);
+}
+
+function displayWeather(data) {
+  const { name, main, weather } = data;
+  currentTempC = main.temp;
+
+  locationEl.textContent = `📍 ${name}`;
+  weatherEl.textContent = `🌤️ ${weather[0].description}`;
+  tempEl.textContent = `${main.temp.toFixed(1)}°C`;
+  feelsLikeEl.textContent = `Feels like ${main.feels_like.toFixed(1)}°C`;
+  showCelsius = true;
+  toggleBtn.textContent = "Switch to °F";
+
+  showLoader(false);
+}
+
+function showError(message) {
+  result.classList.remove("hidden");
+  locationEl.textContent = "⚠️ Error";
+  weatherEl.textContent = message;
+  tempEl.textContent = "";
+  feelsLikeEl.textContent = "";
+}
+
+async function fetchWeather(city) {
+  try {
+    showLoader(true);
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+    );
+    if (!res.ok) throw new Error("City not found");
+    const data = await res.json();
+    displayWeather(data);
+  } catch (err) {
+    showLoader(false);
+    showError(err.message);
+  }
+}
+
+async function fetchWeatherByCoords(lat, lon) {
+  try {
+    showLoader(true);
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+    );
+    if (!res.ok) throw new Error("Could not retrieve weather");
+    const data = await res.json();
+    displayWeather(data);
+  } catch (err) {
+    showLoader(false);
+    showError(err.message);
+  }
+}
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const city = input.value.trim();
+  if (city) fetchWeather(city);
+});
+
+geoBtn.addEventListener("click", () => {
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        fetchWeatherByCoords(latitude, longitude);
+      },
+      (err) => showError("Geolocation denied or unavailable")
+    );
+  } else {
+    showError("Geolocation not supported");
+  }
+});
+
+toggleBtn.addEventListener("click", () => {
+  if (currentTempC === null) return;
+  if (showCelsius) {
+    const f = (currentTempC * 9) / 5 + 32;
+    tempEl.textContent = `${f.toFixed(1)}°F`;
+    toggleBtn.textContent = "Switch to °C";
+  } else {
+    tempEl.textContent = `${currentTempC.toFixed(1)}°C`;
+    toggleBtn.textContent = "Switch to °F";
+  }
+  showCelsius = !showCelsius;
+});
+</style>
+</body>
+</html>

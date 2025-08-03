@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator by - Code with Daru</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-800 to-slate-700 relative px-4">
+
+    <!-- Home Button -->
+    <a href="{% url 'home' %}" class="absolute top-4 left-4">
+      <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md shadow-lg transition duration-300">
+        ← Home
+      </button>
+    </a>
+
+    <main>
+      <div class="border border-white rounded-xl p-6 shadow-xl">
+        <!-- Display -->
+        <input
+          type="text"
+          id="display"
+          placeholder="0"
+          class="w-[320px] text-right text-white text-4xl px-6 py-4 bg-transparent border-none shadow-md outline-none mb-4"
+        />
+
+        <!-- Rows -->
+        <div class="flex justify-between mb-4">
+          <button class="btn">AC</button>
+          <button class="btn">del</button>
+          <button class="btn">%</button>
+          <button class="operator">/</button>
+        </div>
+
+        <div class="flex justify-between mb-4">
+          <button class="btn">7</button>
+          <button class="btn">8</button>
+          <button class="btn">9</button>
+          <button class="operator">*</button>
+        </div>
+
+        <div class="flex justify-between mb-4">
+          <button class="btn">4</button>
+          <button class="btn">5</button>
+          <button class="btn">6</button>
+          <button class="operator">-</button>
+        </div>
+
+        <div class="flex justify-between mb-4">
+          <button class="btn">1</button>
+          <button class="btn">2</button>
+          <button class="btn">3</button>
+          <button class="operator">+</button>
+        </div>
+
+        <div class="flex justify-between">
+          <button class="btn">00</button>
+          <button class="btn">0</button>
+          <button class="btn">.</button>
+          <button class="operator">=</button>
+        </div>
+      </div>
+    </main>
+
+    <style type="text/tailwindcss">
+      @layer components {
+        .btn {
+          @apply bg-transparent text-white text-lg w-[60px] h-[60px] rounded-full shadow-md hover:bg-green-600 transition-all duration-300 flex items-center justify-center;
+        }
+
+        .operator {
+          @apply bg-orange-500 text-white text-2xl w-[60px] h-[60px] rounded-full shadow-md hover:bg-orange-600 transition-all duration-300 flex items-center justify-center;
+        }
+      }
+    </style>
+
+    <script>
+      let inputs = document.querySelector("#display");
+      let buttons = document.querySelectorAll('button');
+      let result = "";
+      let arr = Array.from(buttons);
+
+      arr.forEach((button) => {
+        button.addEventListener("click", (e) => {
+          let value = e.target.innerHTML;
+
+          if (value === "=") {
+            try {
+              result = eval(result);
+              inputs.value = result;
+            } catch {
+              inputs.value = "Error";
+              result = "";
+            }
+          } else if (value === "AC") {
+            result = "";
+            inputs.value = result;
+          } else if (value === "del") {
+            result = result.slice(0, -1);
+            inputs.value = result;
+          } else if (value === ".") {
+            let lastNumber = result.split(/[\+\-\*\/]/).pop();
+            if (!lastNumber.includes(".")) {
+              result += value;
+              inputs.value = result;
+            }
+          } else {
+            result += value;
+            inputs.value = result;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

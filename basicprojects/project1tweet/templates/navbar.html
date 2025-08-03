@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Home - Learning Hub{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="min-h-[70vh] flex flex-col items-center justify-center text-center px-4">
+
+  <h1 class="text-4xl font-bold text-gray-800">Hi, I am <span class="text-primary">Tanish Jain</span></h1>
+  <p class="text-lg mt-2 text-gray-600">Welcome to my Django Learning Hub</p>
+</section>
+
+<!-- Project Highlights -->
+<section class="py-10 bg-base-100">
+  <div class="max-w-5xl mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-6 text-center">🛠 Sample Projects</h2>
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <!-- Repeat card below for 10 projects -->
+      <a href="{% url 'todo' %}" class="card bg-base-200 shadow-md hover:scale-[1.02] transition-transform">
+        <div class="card-body">
+          <h3 class="card-title">✅ ToDo App</h3>
+          <p>A task manager built with Tailwind and DaisyUI</p>
+        </div>
+      </a>
+      <div class="card bg-base-200 shadow-md">
+        <div class="card-body">
+          <h3 class="card-title">🧮 Calculator</h3>
+          <p>Simple frontend calculator with JavaScript</p>
+        </div>
+      </div>
+      <div class="card bg-base-200 shadow-md">
+        <div class="card-body">
+          <h3 class="card-title">📋 Notes App</h3>
+          <p>Take notes with edit/delete options</p>
+        </div>
+      </div>
+      <div class="card bg-base-200 shadow-md">
+        <div class="card-body">
+          <h3 class="card-title">🌤 Weather App</h3>
+          <p>Fetch weather using public API</p>
+        </div>
+      </div>
+      <div class="card bg-base-200 shadow-md">
+        <div class="card-body">
+          <h3 class="card-title">🔐 Login UI</h3>
+          <p>Basic login form using Django views</p>
+        </div>
+      </div>
+      <div class="card bg-base-200 shadow-md">
+        <div class="card-body">
+          <h3 class="card-title">📝 Blog Layout</h3>
+          <p>Static blog UI using Tailwind</p>
+        </div>
+      </div>
+      <div class="card bg-base-200 shadow-md">
+        <div class="card-body">
+          <h3 class="card-title">💸 Expense Tracker</h3>
+          <p>Track your daily expenses</p>
+        </div>
+      </div>
+      <div class="card bg-base-200 shadow-md">
+        <div class="card-body">
+          <h3 class="card-title">📂 File Uploader</h3>
+          <p>Upload and preview files in Django</p>
+        </div>
+      </div>
+      <div class="card bg-base-200 shadow-md">
+        <div class="card-body">
+          <h3 class="card-title">📞 Contact Form</h3>
+          <p>Basic form with name/email/message</p>
+        </div>
+      </div>
+      <a href="{% url 'cursor' %}" class="card bg-base-200 shadow-md hover:scale-[1.02] transition-transform">
+        <div class="card-body">
+          <h3 class="card-title">🧲 Cursor Animation</h3>
+          <p>Interactive demo using anime.js</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

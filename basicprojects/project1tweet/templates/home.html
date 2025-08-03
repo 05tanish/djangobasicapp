@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% block title %}Home - Learning Hub{% endblock %}
+
+{% block content %}
+
+<nav class="navbar sticky top-0 z-50 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white shadow-lg px-6 py-3">
+  <div class="max-w-7xl mx-auto w-full flex items-center justify-between">
+    <!-- Logo -->
+    <a href="{% url 'home' %}" class="text-2xl font-extrabold tracking-wide hover:text-yellow-300">Learning Hub</a>
+
+    <!-- Nav Links -->
+    <ul class="hidden md:flex space-x-8 text-lg font-medium">
+      <li><a href="{% url 'home' %}" class="hover:underline">Home</a></li>
+      <li><a href="#projects" class="hover:underline">Projects</a></li>
+      <li><a href="#about" class="hover:underline">About</a></li>
+      <li><a href="#contact" class="hover:underline">Contact</a></li>
+    </ul>
+
+    <!-- Auth Area -->
+    {% if user.is_authenticated %}
+      <!-- Profile dropdown -->
+      <div class="flex items-center space-x-2">
+  <a href="{% url 'profile' %}" class="btn btn-ghost btn-circle avatar hover:scale-105 transition">
+    <div class="w-10 rounded-full ring ring-white ring-offset-2 ring-offset-purple-500">
+      <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=6b46c1&color=fff&rounded=true" alt="Profile" />
+    </div>
+  </a>
+</div>
+
+    {% else %}
+      <!-- Login Button -->
+      <a href="{% url 'login' %}" class="btn btn-sm bg-purple-600 hover:bg-purple-800 text-white rounded-xl px-5 py-2">Login</a>
+    {% endif %}
+  </div>
+</nav>
+
+
+
+
+
+<!-- Hero Section -->
+<section class="min-h-[90vh] flex items-center justify-center text-center px-6 bg-gradient-to-br from-purple-600 to-indigo-800 text-white">
+  <div class="space-y-6 max-w-2xl mx-auto animate-fade-in">
+    <h1 class="text-5xl md:text-6xl font-extrabold leading-tight">
+      Hi, I'm <span class="text-yellow-300" id="roleSwitcher">Tanish Jain</span>
+    </h1>
+    <p class="text-xl">Welcome to my Django Learning Hub</p>
+    <p class="text-sm text-gray-200">Practice web development with Django, Tailwind, and JavaScript 🚀</p>
+    <div class="mt-6">
+      <a href="#projects" class="btn bg-yellow-300 hover:bg-yellow-400 text-black font-semibold rounded-lg px-6 py-2 transition-transform transform hover:scale-105">Explore Projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-20 bg-white animate-slide-up">
+  <div class="max-w-4xl mx-auto text-center px-4">
+    <h2 class="text-4xl font-bold mb-6 text-indigo-700">👨‍💻 About Me</h2>
+    <p class="text-gray-700 text-lg leading-relaxed">
+      I'm a web developer and DevOps enthusiast. This Learning Hub is used to practice my Django, Tailwind, and JavaScript skills . I enjoy solving real-world problems and crafting modern, responsive web applications. it contain all js projects that i made 
+    </p>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="py-20 bg-gradient-to-br from-gray-50 to-blue-100 animate-fade-in-up">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-4xl font-bold mb-12 text-center text-purple-700">🛠 Sample Projects</h2>
+    <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <a href="{% url 'todo' %}" class="card bg-white hover:shadow-2xl transition transform hover:-translate-y-1 shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title text-xl text-indigo-600">✅ ToDo App</h3>
+          <p class="text-gray-600">Task manager using Tailwind and Django</p>
+        </div>
+      </a>
+      <a href="{% url 'calculator' %}" class="card bg-white hover:shadow-2xl transition transform hover:-translate-y-1 shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title text-xl text-indigo-600">🧮 Calculator</h3>
+          <p class="text-gray-600">Simple JS calculator UI</p>
+        </div>
+      </a>
+      <a href="{% url 'cursor' %}" class="card bg-white hover:shadow-2xl transition transform hover:-translate-y-1 shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title text-xl text-indigo-600">🧲 Cursor Animation</h3>
+          <p class="text-gray-600">Interactive animation with anime.js</p>
+        </div>
+      </a>
+             <a href="{% url 'colourchange' %}" class="card bg-white hover:shadow-2xl transition transform hover:-translate-y-1 shadow-xl">
+
+  <div class="card-body">
+          <h3 class="card-title text-xl text-indigo-600">🎨 Color Changer</h3>
+          <p class="text-gray-600">simpel background color toggler</p>
+        </div>
+        </a>
+
+        <a href="{% url 'passwordgenerator' %}" class="card bg-white hover:shadow-2xl transition transform hover:-translate-y-1 shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title text-xl text-indigo-600">🔐 Password Generator</h3>
+          <p class="text-gray-600">Secure password generator using React and Tailwind</p>
+        </div>
+      </a>
+
+      <a href="{% url 'musicplayer' %}" class="card bg-white hover:shadow-2xl transition transform hover:-translate-y-1 shadow-xl">
+      
+        <div class="card-body">
+          <h3 class="card-title text-xl text-indigo-600">🎵 Music Player</h3>
+          <p class="text-gray-600"> Simple Music Player</p>
+        </div>
+        </a>
+<a href="{% url 'weather' %}" class="card bg-white hover:shadow-2xl transition transform hover:-translate-y-1 shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title text-xl text-indigo-600">☁️ Weather</h3>
+          <p class="text-gray-600">Simple weather web app</p>
+        </div>
+      </a>
+
+      <a href="{% url 'expensetracker' %}" class="card bg-white hover:shadow-2xl transition transform hover:-translate-y-1 shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title text-xl text-indigo-600">🧮 Expense Tracker</h3>
+          <p class="text-gray-600">Simple Expense Tracker </p>
+        </div>
+      </a>
+
+      <a href="{% url 'calculator' %}" class="card bg-white hover:shadow-2xl transition transform hover:-translate-y-1 shadow-xl">
+        <div class="card-body">
+          <h3 class="card-title text-xl text-indigo-600">🧮 Calculator</h3>
+          <p class="text-gray-600">Simple JS calculator UI</p>
+        </div>
+      </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-20 bg-white animate-slide-up">
+  <div class="max-w-4xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center text-pink-600 mb-8">📬 Contact Me</h2>
+    <form method="post" action="{% url 'contact' %}" class="bg-gradient-to-br from-pink-100 to-purple-100 p-8 rounded-2xl shadow-lg space-y-6 max-w-xl mx-auto">
+      {% csrf_token %}
+      <input type="text" name="name" placeholder="Your Name" class="input input-bordered w-full" required>
+      <input type="email" name="email" placeholder="Your Email" class="input input-bordered w-full" required>
+      <textarea name="message" placeholder="Your Message" class="textarea textarea-bordered w-full" rows="4" required></textarea>
+      <button type="submit" class="btn btn-primary w-full">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-base-300 text-base-content text-center py-6 animate-fade-in">
+  <p class="mb-2">&copy; {{ now.year }} <span class="font-semibold">Tanish Jain</span>. Built with ❤️ using Django & TailwindCSS.</p>
+  <div class="flex justify-center space-x-6 text-gray-600">
+    <a href="https://github.com/05tanish" target="_blank" class="hover:text-black">GitHub</a>
+    <a href="https://linkedin.com/in/tanish-jain-5b986828a" target="_blank" class="hover:text-black">LinkedIn</a>
+    <a href="mailto:tanishjain626@gmail.com" class="hover:text-black">Email</a>
+  </div>
+</footer>
+
+<script>
+  const roles = ["Tanish Jain", "DevOps Engineer"];
+  let i = 0;
+  const roleElement = document.getElementById("roleSwitcher");
+  setInterval(() => {
+    roleElement.classList.remove("fadeInUp");
+    void roleElement.offsetWidth; // trigger reflow
+    i = (i + 1) % roles.length;
+    roleElement.innerText = roles[i];
+    roleElement.classList.add("fadeInUp");
+  }, 3000);
+</script>
+
+<style>
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 1s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fade-in 1s ease-out forwards;
+  animation-delay: 0.3s;
+}
+
+.fadeInUp {
+  animation: fadeInUp 0.6s ease-in-out forwards;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+{% endblock %}

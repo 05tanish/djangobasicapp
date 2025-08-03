@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>🎨 Color & Cursor Animation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom cursor */
+      .cursor {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #f472b6;
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s ease;
+        z-index: 9999;
+      }
+
+      body {
+        transition: background 1s ease;
+      }
+    </style>
+  </head>
+
+  <body class="relative min-h-screen flex flex-col items-center justify-center text-white bg-black overflow-hidden">
+
+    <!-- Home Button -->
+    <a href="{% url 'home' %}" class="absolute top-4 left-4 z-50">
+      <button class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded shadow">
+        ← Home
+      </button>
+    </a>
+
+    <!-- Animated Cursor -->
+    <div class="cursor" id="cursor"></div>
+
+    <!-- Main Content -->
+    <div class="text-center space-y-6 z-10">
+      <h1 class="text-4xl font-bold tracking-wide">🎨 Color & Cursor Animation</h1>
+      <button id="changeColorBtn" class="px-6 py-3 bg-pink-600 rounded hover:bg-pink-700 transition shadow">
+        Change Background Color
+      </button>
+    </div>
+
+    <script>
+      // Color list for background change
+      const colors = [
+        "#0f172a", "#1e293b", "#3b0764", "#334155",
+        "#4c1d95", "#7e22ce", "#0891b2", "#0ea5e9",
+        "#059669", "#84cc16", "#eab308", "#f97316",
+        "#dc2626", "#f43f5e", "#ec4899"
+      ];
+
+      const body = document.body;
+      const btn = document.getElementById("changeColorBtn");
+
+      // Change bg color on button click
+      btn.addEventListener("click", () => {
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        body.style.backgroundColor = randomColor;
+      });
+
+      // Auto change color every 7 seconds (optional)
+      setInterval(() => {
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        body.style.backgroundColor = randomColor;
+      }, 7000);
+
+      // Custom animated cursor
+      const cursor = document.getElementById("cursor");
+
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+      });
+
+      // Smooth follow effect (optional enhancement)
+      let mouseX = 0, mouseY = 0;
+      let posX = 0, posY = 0;
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function animateCursor() {
+        posX += (mouseX - posX) / 5;
+        posY += (mouseY - posY) / 5;
+        cursor.style.left = `${posX}px`;
+        cursor.style.top = `${posY}px`;
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+    </script>
+  </body>
+</html>
